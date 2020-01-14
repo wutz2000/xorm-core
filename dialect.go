@@ -252,6 +252,9 @@ func (b *Base) CreateTableSql(table *Table, tableName, storeEngine, charset stri
 
 		for _, colName := range table.ColumnsSeq() {
 			col := table.GetColumn(colName)
+			if col.Associate != nil {
+				continue
+			}
 			if col.IsPrimaryKey && len(pkList) == 1 {
 				sql += col.String(b.dialect)
 			} else {
